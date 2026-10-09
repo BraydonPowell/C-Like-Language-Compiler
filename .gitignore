@@ -1,0 +1,7 @@
+build/
+kestrel
+a.out
+*.s
+*.dSYM/
+.DS_Store
+fib

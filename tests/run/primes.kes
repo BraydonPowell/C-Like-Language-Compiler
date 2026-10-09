@@ -1,0 +1,26 @@
+// Trial-division prime sieve up to a limit.
+fn is_prime(n: int) -> bool {
+    if (n < 2) {
+        return false;
+    }
+    let d = 2;
+    while (d * d <= n) {
+        if (n % d == 0) {
+            return false;
+        }
+        d = d + 1;
+    }
+    return true;
+}
+
+fn main() -> int {
+    let count = 0;
+    for (let n = 2; n < 60; n = n + 1) {
+        if (is_prime(n)) {
+            print(n);
+            count = count + 1;
+        }
+    }
+    print(count);
+    return 0;
+}

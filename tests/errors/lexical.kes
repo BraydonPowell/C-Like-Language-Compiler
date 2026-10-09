@@ -1,0 +1,7 @@
+fn main() -> int {
+    let a = 3 # 4;
+    let b = 1 & 2;
+    let c = 99999999999999999999;
+    /* never closed
+    return 0;
+}

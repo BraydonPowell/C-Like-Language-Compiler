@@ -1,0 +1,5 @@
+returns.kes:1:4: error: function 'missing' does not return a value on every path
+returns.kes:8:5: error: function 'nothing' must return int
+returns.kes:12:12: error: void function 'extra' cannot return a value
+returns.kes:18:13: error: cannot initialize 'a' with a void value
+returns.kes:19:11: error: cannot print a void value

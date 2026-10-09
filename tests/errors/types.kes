@@ -1,0 +1,23 @@
+fn add(a: int, b: int) -> int {
+    return a + b;
+}
+
+fn check(flag: bool) -> bool {
+    return flag;
+}
+
+fn main() -> int {
+    let n: int = true;
+    let ok = 1 + false;
+    let s = add(1);
+    let t = add(1, true);
+    n = ok;
+    if (n) { print(1); }
+    while (1 + 2) { print(2); }
+    print(check(5));
+    print(-true);
+    print(!3);
+    print(1 == true);
+    print(8 / 0);
+    return false;
+}

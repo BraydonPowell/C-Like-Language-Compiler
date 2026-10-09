@@ -1,0 +1,58 @@
+fn sign(x: int) -> int {
+    if (x < 0) { return -1; }
+    else if (x == 0) { return 0; }
+    else { return 1; }
+}
+
+fn side_effect(x: int) -> bool {
+    print(x);
+    return true;
+}
+
+fn many(a: int, b: int, c: int, d: int, e: int, f: int) -> int {
+    return a + b * 2 + c * 3 + d * 4 + e * 5 + f * 6;
+}
+
+fn greet() {
+    print(7);
+}
+
+fn main() -> int {
+    print(sign(-9));
+    print(sign(0));
+    print(sign(4));
+
+    // break / continue
+    let sum = 0;
+    for (let i = 0; i < 100; i = i + 1) {
+        if (i % 2 == 0) { continue; }
+        if (i > 9) { break; }
+        sum = sum + i;
+    }
+    print(sum);
+
+    // short-circuit: the call must not run
+    if (false && side_effect(111)) { print(0); }
+    if (true || side_effect(222)) { print(1); }
+    if (true && side_effect(333)) { print(2); }
+
+    // shadowing and scopes
+    let x = 1;
+    {
+        let x = 2;
+        print(x);
+    }
+    print(x);
+
+    // precedence, unary minus, division semantics
+    print(2 + 3 * 4 - 10 / 3);
+    print(-7 / 2);
+    print(-7 % 3);
+    print(!(1 < 2) || 3 >= 3);
+    print(many(1, 2, 3, 4, 5, 6) + many(1, 1, 1, 1, 1, 1));
+
+    // calls nested inside arithmetic keep the stack aligned
+    print(1 + sign(5) + (2 + sign(-5)) * many(1, 2, 3, 4, 5, 6));
+    greet();
+    return 3;
+}

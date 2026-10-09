@@ -1,0 +1,20 @@
+fn helper() { print(1); }
+
+fn helper() { print(2); }
+
+fn main() -> int {
+    let x = 1;
+    let x = 2;
+    print(y);
+    z = 3;
+    {
+        let inner = 1;
+    }
+    print(inner);
+    undefined_fn(1);
+    x(3);
+    print(helper);
+    helper = 3;
+    break;
+    return 0;
+}

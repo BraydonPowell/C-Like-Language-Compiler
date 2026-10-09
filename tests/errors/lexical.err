@@ -1,0 +1,5 @@
+lexical.kes:2:15: error: unexpected character '#'
+lexical.kes:3:15: error: unexpected character '&' (did you mean '&&'?)
+lexical.kes:4:13: error: integer literal is too large
+lexical.kes:5:5: error: unterminated block comment
+lexical.kes:8:1: error: expected '}' to close block

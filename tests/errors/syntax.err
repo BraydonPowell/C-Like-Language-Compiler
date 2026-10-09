@@ -1,0 +1,4 @@
+syntax.kes:2:14: error: expected ';' after variable declaration
+syntax.kes:3:19: error: expected ')' after expression
+syntax.kes:4:13: error: expected ')' after print argument
+syntax.kes:5:8: error: expected '(' after 'if'

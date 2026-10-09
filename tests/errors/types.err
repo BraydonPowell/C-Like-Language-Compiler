@@ -1,0 +1,12 @@
+types.kes:10:18: error: cannot initialize 'n' of type int with a value of type bool
+types.kes:11:16: error: operator '+' expects int operands, got int and bool
+types.kes:12:13: error: 'add' expects 2 arguments, got 1
+types.kes:13:20: error: argument 2 of 'add' expects int, got bool
+types.kes:15:9: error: if condition must be bool, got int
+types.kes:16:14: error: while condition must be bool, got int
+types.kes:17:17: error: argument 1 of 'check' expects bool, got int
+types.kes:18:11: error: operator '-' expects int, got bool
+types.kes:19:11: error: operator '!' expects bool, got int
+types.kes:20:13: error: cannot compare int with bool
+types.kes:21:15: error: division by zero
+types.kes:22:12: error: function 'main' returns int, but this expression is bool

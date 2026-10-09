@@ -1,0 +1,21 @@
+fn missing(x: int) -> int {
+    if (x > 0) {
+        return 1;
+    }
+}
+
+fn nothing() -> int {
+    return;
+}
+
+fn extra() {
+    return 4;
+}
+
+fn v() { }
+
+fn main() -> int {
+    let a = v();
+    print(v());
+    return 0;
+}

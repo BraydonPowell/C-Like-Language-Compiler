@@ -1,0 +1,10 @@
+scopes.kes:3:4: error: function 'helper' is already defined (line 1)
+scopes.kes:7:9: error: 'x' is already declared in this scope (line 6)
+scopes.kes:8:11: error: undefined variable 'y'
+scopes.kes:9:5: error: undefined variable 'z'
+scopes.kes:13:11: error: undefined variable 'inner'
+scopes.kes:14:5: error: undefined function 'undefined_fn'
+scopes.kes:15:5: error: 'x' is not a function
+scopes.kes:16:11: error: 'helper' is a function, not a variable
+scopes.kes:17:5: error: cannot assign to function 'helper'
+scopes.kes:18:5: error: 'break' outside of a loop
