@@ -1,82 +1,48 @@
 # Kestrel
 
-A small compiler written in C. It takes a statically typed, C-like language and
-produces x86-64 assembly, then hands it to the system toolchain to build an
-executable.
+A compiler I wrote in C for a tiny C-like language I also made up. It turns your code into x86-64 assembly, then lets `cc` do the boring part.
 
 ```
-fn gcd(a: int, b: int) -> int {
-    while (b != 0) {
-        let t = b;
-        b = a % b;
-        a = t;
-    }
-    return a;
+fn fib(n: int) -> int {
+    if (n < 2) { return n; }
+    return fib(n - 1) + fib(n - 2);
 }
 
 fn main() -> int {
-    print(gcd(48, 18));   // 6
+    print(fib(10));   // 55
     return 0;
 }
 ```
 
-## Building and running
+## Run it
 
 ```sh
 make
 ./kestrel examples/fib.kes -o fib && ./fib
-./kestrel -S examples/fib.kes -o fib.s      # inspect the assembly
+./kestrel -S examples/fib.kes -o fib.s   # just the assembly
 make test
 ```
 
+Output is x86-64, so on an M-series Mac it runs through Rosetta. Yes, really.
 
+## What's in the language
 
-## The language
+`int`, `bool`, functions, recursion, `let`, `if`/`else`, `while`, `for`, `break`, `continue`, `print`. No strings, no arrays, no regrets.
 
-- Types: `int` (64-bit), `bool`, and `void` for functions that return nothing.
-- Declarations: `let x = 1;` or `let x: int = 1;`, block scoped, shadowing allowed.
-- Control flow: `if`/`else if`/`else`, `while`, `for (init; cond; step)`,
-  `break`, `continue`, `return`.
-- Operators: `+ - * / %`, `< <= > >=`, `== !=`, `&& || !`, unary `-`.
-  `&&` and `||` short-circuit.
-- Functions: `fn name(a: int, b: bool) -> int { ... }`, up to six parameters,
-  recursion and forward references both work. The return type may be omitted
-  for `void`.
-- `print(expr);` writes an `int` or `bool` followed by a newline.
-- Every program needs `fn main() -> int`; its result becomes the exit code.
+## What's under the hood
 
-## How it works
+Hand-written lexer, recursive descent parser, symbol table with scopes, a type checker, and a code generator that keeps everything on the stack because registers are hard.
 
-| Stage | File | Notes |
-| --- | --- | --- |
-| Lexer | `src/lexer.c` | Hand-written scanner, tracks line and column |
-| Parser | `src/parser.c` | Recursive descent; precedence climbing for binary operators |
-| Symbol table | `src/symtab.c` | Chain of scopes, one per block |
-| Checker | `src/check.c` | Name resolution, type checking, stack slot assignment, return-path analysis |
-| Code generator | `src/codegen.c` | Stack-machine style x86-64, System V calling convention |
-| Diagnostics | `src/diag.c` | `file:line:col` messages with the offending source line |
-
-The parser recovers from errors by skipping to the next statement boundary, and
-the checker keeps going after a type error, so one run reports as many problems
-as it can:
+Mess up and it tells you where, with line numbers and a little arrow:
 
 ```
 bad.kes:3:16: error: operator '+' expects int operands, got int and bool
     3 |     let ok = 1 + false;
       |                ^
-bad.kes:5:11: error: undefined variable 'y'
-    5 |     print(y);
-      |           ^
-2 errors generated.
 ```
 
-Code generation is deliberately simple: every expression leaves its result in
-`%rax`, and intermediate values go through the stack. The generator tracks how
-many pushes are outstanding so the stack is 16-byte aligned at every `call`.
-There is no optimization pass.
+It keeps going after the first error, so you get to feel bad about all of them at once.
 
 ## Tests
 
-`make test` compiles and runs each program in `tests/run` and compares the
-output against its `.out` file. Each file in `tests/errors` must produce
-exactly the diagnostics listed in its `.err` file.
+`make test` runs everything in `tests/`. Programs have to print the right thing, and the broken ones have to fail in exactly the right way.
